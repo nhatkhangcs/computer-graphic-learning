@@ -3,10 +3,10 @@ import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from core.base import Base
-from core.openGLUtils import OpenGLUtils
-from core.attribute import Attribute
 from OpenGL.GL import *
+from core.attribute import Attribute
+from core.openGLUtils import OpenGLUtils
+from core.base import Base
 
 # render shapes with vertex colors
 
@@ -65,7 +65,7 @@ class Test(Base):
 
     def update(self):
         glUseProgram(self.programRef)
-        glDrawArrays(GL_POINTS, 0, self.vertexCount)
+        glDrawArrays(GL_TRIANGLE_FAN, 0, self.vertexCount)
 
 
 if __name__ == "__main__":
