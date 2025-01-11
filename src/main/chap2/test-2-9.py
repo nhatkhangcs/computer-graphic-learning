@@ -1,13 +1,11 @@
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from path_setup import *
 
 from core.base import Base
 from core.openGLUtils import OpenGLUtils
 from core.attribute import Attribute
 from core.uniform import Uniform
 from OpenGL.GL import *
+from math import sin, cos
 
 # animate triangle moving across screen
 
@@ -21,9 +19,8 @@ class Test(Base):
             uniform vec3 translation;
             void main()
             {
-            vec3 pos = position + translation;
-                        gl_Position = vec4(pos.x, pos.y, pos.z,
-            1.0);
+            vec3 pos = position + translation; 
+            gl_Position = vec4(pos.x, pos.y, pos.z, 1.0);
             }
         """
         fsCode = """
@@ -31,9 +28,7 @@ class Test(Base):
             out vec4 fragColor;
             void main()
             {
-            fragColor = vec4(
-                            baseColor.r, baseColor.g, baseColor.b,
-            1.0);
+            fragColor = vec4(baseColor.r, baseColor.g, baseColor.b, 1.0);
             }
         """
         self.programRef = OpenGLUtils.initializeProgram(vsCode, fsCode)
@@ -57,14 +52,12 @@ class Test(Base):
 
     def update(self):
         ### update data ###
-        # increase x coordinate of translation
-        self.translation.data[0] += 0.01
-
-        # if triangle passes off-screen on the right,
-        # change translation so it reappears on the left
-        if self.translation.data[0] > 1.2:
-            self.translation.data[0] = -1.2
-            ### render scene ###
+        self.translation.data[0] = 0.75 * cos(self.time)
+        self.translation.data[1] = 0.75 * sin(self.time)
+        self.baseColor.data[0] = (sin(self.time) + 1) / 2
+        self.baseColor.data[1] = (sin(self.time + 2.1) + 1) / 2
+        self.baseColor.data[2] = (sin(self.time + 4.2) + 1) / 2
+        ### render scene ###
         # reset color buffer with specified color
         glClear(GL_COLOR_BUFFER_BIT)
         glUseProgram(self.programRef)

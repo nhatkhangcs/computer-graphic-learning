@@ -1,8 +1,4 @@
-import sys
-import os
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+from path_setup import *
 from core.base import Base
 from core.openGLUtils import OpenGLUtils
 from OpenGL.GL import *
