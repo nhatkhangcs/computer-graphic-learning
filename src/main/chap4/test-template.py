@@ -7,6 +7,8 @@ from core.camera import Camera
 from core.mesh import Mesh
 from geometry.boxGeometry import BoxGeometry
 from material.surfaceMaterial import SurfaceMaterial
+from core.texture import Texture
+from material.textureMaterial import TextureMaterial
 
 
 # render a basic scene

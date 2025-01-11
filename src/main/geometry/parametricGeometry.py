@@ -17,6 +17,15 @@ class ParametricGeometry(Geometry):
                 v = vStart + vIndex * deltaV
                 vArray.append(surfaceFunction(u, v))
             positions.append(vArray)
+        uvs = []
+        uvData = []
+        for uIndex in range(uResolution + 1):
+            vArray = []
+            for vIndex in range(vResolution + 1):
+                u = uIndex / uResolution
+                v = vIndex / vResolution
+                vArray.append([u, v])
+            uvs.append(vArray)
         # store vertex data
         positionData = []
         colorData = []
@@ -42,6 +51,13 @@ class ParametricGeometry(Geometry):
                 ]
                 # color data
                 colorData += [C1, C2, C3, C4, C5, C6]
+                # uv coordinates
+                uvA = uvs[xIndex + 0][yIndex + 0]
+                uvB = uvs[xIndex + 1][yIndex + 0]
+                uvD = uvs[xIndex + 0][yIndex + 1]
+                uvC = uvs[xIndex + 1][yIndex + 1]
+                uvData += [uvA, uvB, uvC, uvA, uvC, uvD]
         self.addAttribute("vec3", "vertexPosition", positionData)
         self.addAttribute("vec3", "vertexColor", colorData)
+        self.addAttribute("vec2", "vertexUV", uvData)
         self.countVertices()
