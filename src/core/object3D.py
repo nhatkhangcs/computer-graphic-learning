@@ -87,3 +87,6 @@ class Object3D(object):
         self.transform[0, 3] = position[0]
         self.transform[1, 3] = position[1]
         self.transform[2, 3] = position[2]
+
+    def lookAt(self, targetPosition):
+        self.transform = Matrix.makeLookAt(self.getWorldPosition(), targetPosition)
